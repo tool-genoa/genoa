@@ -157,6 +157,3 @@ If you use GENOA v3, please cite:
 ## Contact
 
 **Zhizhao Wang** ([zhizhaow@ucr.edu](mailto:zhizhaow@ucr.edu))
-
-For documentation, examples, and test-case descriptions, visit the **GENOA v3 web page** (link forthcoming).
-
