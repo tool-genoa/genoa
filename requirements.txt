@@ -1,0 +1,7 @@
+attrs
+numpy
+openbabel
+matplotlib
+graphviz
+cairosvg
+netCDF4

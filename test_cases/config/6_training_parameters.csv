@@ -1,0 +1,36 @@
+# ================================================================================
+#  GENOA v3.0: the GENerator of Optimized Atmospheric chemical mechanisms
+#  Parameter file for simulation-based reduction (training)
+#
+#  Notes:
+#    - Lines starting with "#" are comments and ignored.
+#    - Format: name & values (separated by & per stage)
+#    - All rows must have the same number of stage values.
+#    - Flags (flg_) must be 0 = 0ff or 1 = on.
+#
+#  For detailed option descriptions, see the reference parameter file:
+#    ./test_cases/config/parameter_reference.csv
+#
+# ================================================================================
+
+# Path to training condition files
+path_cond & "./test_cases/conditions/U6/2conds" & "./test_cases/conditions/U6/2conds"
+
+# Reduction strategies applied at each stage
+# rm: reaction removal, rs: species removal, da: gas-particle partitioning removal
+# jp: jumping, lp: lumping, rp: replacement
+strategies & ["rm","rs","da","jp","lp","rp"] & ["rm","rs","da","jp","lp","rp"]
+
+# Reference mechanisms for error evaluation
+ref_cases & ["ref"] & ["ref"]
+
+# Error tolerances for reduction
+# err_max: maximum allowed error
+# err_ave: average allowed error
+# delta_err: maximum error introduced by one reduction step
+err_max   & [0.05] & [0.1]
+err_ave   & [0.01] & [0.03]
+delta_err & [0.01] & [0.03]
+
+# Default use rdc_variant_build["ncomb"] if not given. If 0, no vairant.
+nmax_eval_comb & 0 & 3

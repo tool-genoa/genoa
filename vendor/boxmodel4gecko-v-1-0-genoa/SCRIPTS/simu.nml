@@ -1,0 +1,30 @@
+&simu_conditions
+tstart  = 0.          ! starting time for simulation
+tstop   = 86400.      ! stopping time for simulation
+ntstep  = 480         ! # of printouts (binary file) & "refresh" time (T, rate, ...)
+nskip   = 2           ! skip printout in the binary file
+rtol    = 0.01        ! relative tolerance - solver parameters
+atol    = 100.        ! absolute tolerance - solver parameters
+/
+&env_conditions
+temp0   = 298.        ! initial temperature
+rh0     = 70.         ! initial Relative Humidity
+flag_ZA = .FALSE.     ! flag to fix the zenithal angle
+fixedZA = 0.          ! fixed zenithal angle to set between 0 and 90 (put a value over 90 to perform simulations with no light)
+kdilu   = 0.          ! dilution rate constant (apply to all species in all phase)
+kaerloss= 0.          ! particle loss rate constant (apply to species in particles only) 
+iday    = 21          ! Day used for photolysis rate calculation
+imonth  = 4           ! Month used for photolysis rate calculation
+iyear   = 1996        ! Year used for photolysis rate calculation
+sla     = 45.         ! Latitude used for photolysis rate calculation
+slo     = 0.          ! Longitude used for photolysis rate calculation
+tz      = 0.          ! Time zone used for photolysis rate calculation
+/
+&mass_transfert_parameters
+nvoc    = 2.23E11     ! Non Volatile Organic Compound (seeds concentration in molec.cm-3)
+nvic    = 0.          ! Non Volatile Inorganic Compound (seeds concentration in molec.cm-3)  - ONLY USED WITH DYNAMIC MASS TRANSFER
+Rp0     = 1E-5        ! Initial radius of the seed particles - ONLY USED WITH DYNAMIC MASS TRANSFER
+denssoa = 1.06        ! soa density (g.cm-3)                 - ONLY USED WITH DYNAMIC MASS TRANSFER 
+densseed= 1.06        ! seed density (g.cm-3)                - ONLY USED WITH DYNAMIC MASS TRANSFER
+Mseed   = 427.        ! seed molar mass (DOS=427 g/mol)      - ONLY USED WITH DYNAMIC MASS TRANSFER
+/

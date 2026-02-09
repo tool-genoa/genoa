@@ -1,0 +1,685 @@
+
+name	"H2"
+string	"H2"
+status	2
+mass	2.0
+rdc_id	"G"
+
+
+name	"H2O"
+string	"H2O"
+status	2
+mass	16.0
+rdc_id	"G"
+
+
+name	"H2O2"
+string	"H2O2"
+status	2
+mass	34.0
+rdc_id	"G"
+
+
+name	"HNO2"
+string	"HNO2"
+status	2
+mass	47.0
+rdc_id	"G"
+
+
+name	"HNO3"
+string	"HNO3"
+status	2
+mass	63.0
+rdc_id	"G"
+
+
+name	"HNO4"
+string	"HNO4"
+status	2
+mass	79.0
+rdc_id	"G"
+
+
+name	"HO"
+string	"HO"
+status	2
+mass	17
+rdc_id	"G"
+
+
+name	"HO2"
+string	"HO2"
+status	2
+mass	33
+rdc_id	"G"
+
+
+name	"N2O5"
+string	"N2O5"
+status	2
+mass	108.0
+rdc_id	"G"
+
+
+name	"NO"
+string	"NO"
+status	2
+mass	30
+rdc_id	"G"
+
+
+name	"NO2"
+string	"NO2"
+status	2
+mass	46
+rdc_id	"G"
+
+
+name	"NO3"
+string	"NO3"
+status	2
+mass	62
+rdc_id	"G"
+
+
+name	"O3P"
+string	"O"
+status	2
+mass	16.0
+rdc_id	"G"
+
+
+name	"O1D"
+string	"O*"
+status	2
+mass	16.0
+rdc_id	"G"
+
+
+name	"O2"
+string	"O2"
+status	2
+mass	32.0
+rdc_id	"G"
+
+
+name	"O3"
+string	"O3"
+status	2
+mass	48
+rdc_id	"G"
+
+
+name	"SO2"
+string	"SO2"
+status	2
+mass	64
+rdc_id	"G"
+
+
+name	"SULF"
+string	"sulf"
+status	2
+mass	98.0
+rdc_id	"G"
+
+
+name	"XCLOST"
+string	"xxlost"
+status	2
+mass	12.0
+rdc_id	"G"
+
+
+name	"2V1001"
+string	"CH2(NO2)(OO.)"
+status	2
+mass	92.0
+radical	true
+formula	"C1H2N1O4"
+smiles	"C(N(=O)=O)(OO.)"
+fgroups	{"C": 1, "H": 2, "N": 1, "O": 4}
+ratios	{"OM/OC": 7.667, "H/C": 2.0, "O/C": 4.0, "N/C": 1.0}
+note	"2V"
+rdc_id	"R"
+
+
+name	"COHOOH"
+string	"CH2(OH)(OOH)"
+status	2
+mass	64.0
+formula	"C1H4N0O3"
+smiles	"OOCO"
+fgroups	{"C": 1, "H": 4, "N": 0, "O": 3}
+ratios	{"OM/OC": 5.333, "H/C": 4.0, "O/C": 3.0, "N/C": 0.0}
+note	"HO"
+rdc_id	"G"
+
+
+name	"ED2001"
+string	"CH2(OH)-O-CHO"
+status	2
+mass	76.1
+condensable	true
+formula	"C2H4N0O3"
+smiles	"OCOC=O"
+fgroups	{"C": 2, "H": 4, "N": 0, "O": 3}
+ratios	{"OM/OC": 3.171, "H/C": 2.0, "O/C": 1.5, "N/C": 0.0}
+psat_atm	0.01133
+dhvap_kj	43.4
+note	"DOE"
+tg	215.33
+dvol	59.37
+rdc_id	"A"
+
+
+name	"NH1001"
+string	"CH2(ONO2)(OOH)"
+status	2
+mass	109.0
+formula	"C1H3N1O5"
+smiles	"OOCON(=O)=O"
+fgroups	{"C": 1, "H": 3, "N": 1, "O": 5}
+ratios	{"OM/OC": 9.083, "H/C": 3.0, "O/C": 5.0, "N/C": 1.0}
+note	"NH"
+rdc_id	"G"
+
+
+name	"EN2000"
+string	"CH2(ONO2)-O-CHO"
+status	2
+mass	121.1
+condensable	true
+formula	"C2H3N1O5"
+smiles	"O=COCON(=O)=O"
+fgroups	{"C": 2, "H": 3, "N": 1, "O": 5}
+ratios	{"OM/OC": 5.046, "H/C": 1.5, "O/C": 2.5, "N/C": 0.5}
+psat_atm	0.005874
+dhvap_kj	49.3
+note	"NDE"
+tg	461.9
+dvol	73.82
+rdc_id	"A"
+
+
+name	"EH2000"
+string	"CH2(OOH)-O-CHO"
+status	2
+mass	92.1
+condensable	true
+formula	"C2H4N0O4"
+smiles	"OOCOC=O"
+fgroups	{"C": 2, "H": 4, "N": 0, "O": 4}
+ratios	{"OM/OC": 3.837, "H/C": 2.0, "O/C": 2.0, "N/C": 0.0}
+psat_atm	0.002094
+dhvap_kj	50.9
+note	"HDE"
+tg	244.69
+dvol	65.48
+rdc_id	"A"
+
+
+name	"CH2OO"
+string	"CH2.(OO.)"
+status	2
+mass	46.0
+radical	true
+formula	"C1H2N0O2"
+smiles	"C.(OO.)"
+fgroups	{"C": 1, "H": 2, "N": 0, "O": 2}
+ratios	{"OM/OC": 3.833, "H/C": 2.0, "O/C": 2.0, "N/C": 0.0}
+note	"4"
+rdc_id	"R"
+
+
+name	"CH2O"
+string	"CH2O"
+status	2
+mass	30.0
+formula	"C1H2N0O1"
+smiles	"C=O"
+fgroups	{"C": 1, "H": 2, "N": 0, "O": 1}
+ratios	{"OM/OC": 2.5, "H/C": 2.0, "O/C": 1.0, "N/C": 0.0}
+note	"D"
+rdc_id	"G"
+
+
+name	"CH3O"
+string	"CH3(O.)"
+status	2
+mass	31.0
+radical	true
+formula	"C1H3N0O1"
+smiles	"C(O.)"
+fgroups	{"C": 1, "H": 3, "N": 0, "O": 1}
+ratios	{"OM/OC": 2.583, "H/C": 3.0, "O/C": 1.0, "N/C": 0.0}
+note	"1."
+rdc_id	"R"
+
+
+name	"CH3OH"
+string	"CH3(OH)"
+status	2
+mass	32.0
+formula	"C1H4N0O1"
+smiles	"CO"
+fgroups	{"C": 1, "H": 4, "N": 0, "O": 1}
+ratios	{"OM/OC": 2.667, "H/C": 4.0, "O/C": 1.0, "N/C": 0.0}
+note	"O"
+rdc_id	"G"
+
+
+name	"N01001"
+string	"CH3(ONO2)"
+status	2
+mass	77.0
+formula	"C1H3N1O3"
+smiles	"CON(=O)=O"
+fgroups	{"C": 1, "H": 3, "N": 1, "O": 3}
+ratios	{"OM/OC": 6.417, "H/C": 3.0, "O/C": 3.0, "N/C": 1.0}
+note	"N"
+rdc_id	"G"
+
+
+name	"CH3O2"
+string	"CH3(OO.)"
+status	2
+mass	47.0
+radical	true
+RO2	6
+formula	"C1H3N0O2"
+smiles	"C(OO.)"
+fgroups	{"C": 1, "H": 3, "N": 0, "O": 2}
+ratios	{"OM/OC": 3.917, "H/C": 3.0, "O/C": 2.0, "N/C": 0.0}
+note	"2."
+rdc_id	"RO2"
+
+
+name	"CH3OOH"
+string	"CH3(OOH)"
+status	2
+mass	48.0
+formula	"C1H4N0O2"
+smiles	"COO"
+fgroups	{"C": 1, "H": 4, "N": 0, "O": 2}
+ratios	{"OM/OC": 4.0, "H/C": 4.0, "O/C": 2.0, "N/C": 0.0}
+note	"H"
+rdc_id	"G"
+
+
+name	"2N6002"
+string	"CH3CH(OH)CH(OO.)CH2COCH2(ONO2)"
+status	1
+mass	208.19999999999996
+radical	true
+RO2	7
+formula	"C6.0H10.0N1.0O7.0"
+smiles	"CC(O)C(OO.)CC(=O)C(ON(=O)=O)"
+fgroups	{"C": 6.0, "H": 10.0, "N": 1.0, "O": 7.0}
+ratios	{"OM/OC": 2.892, "H/C": 1.667, "O/C": 1.167, "N/C": 0.167}
+note	"2.NKO"
+generation	5
+precursors	["U06000"]
+rdc_id	"RO2"
+reductions	{"lp": ["2N6003", "2N600K", "2N600o", "2N600q"]}
+
+
+name	"HN6002"
+string	"CH3CH(OH)CH(OOH)CH2COCH2(ONO2)"
+status	1
+mass	209.2
+condensable	true
+formula	"C6H11N1O7"
+smiles	"OOC(C(O)C)CC(=O)CON(=O)=O"
+fgroups	{"C": 6, "H": 11, "N": 1, "O": 7}
+ratios	{"OM/OC": 2.906, "H/C": 1.833, "O/C": 1.167, "N/C": 0.167}
+psat_atm	3.417e-10
+dhvap_kj	123.2
+note	"HNKO"
+tg	266.07
+dvol	168.12
+generation	6
+precursors	["U06000"]
+rdc_id	"A"
+reductions	{"rp": ["HN6015"]}
+
+
+name	"NO6003"
+string	"CH3CH(OH)CH2CH2CH(OH)CH2(ONO2)"
+status	1
+mass	179.2
+condensable	true
+formula	"C6H13N1O5"
+smiles	"OC(CON(=O)=O)CCC(O)C"
+fgroups	{"C": 6, "H": 13, "N": 1, "O": 5}
+ratios	{"OM/OC": 2.489, "H/C": 2.167, "O/C": 0.833, "N/C": 0.167}
+psat_atm	1.151e-07
+dhvap_kj	97.6
+note	"NOO"
+tg	234.0
+dvol	160.52
+generation	4
+precursors	["U06000"]
+rdc_id	"A"
+
+
+name	"NK6002"
+string	"CH3CH(OH)CH2CH2COCH2(ONO2)"
+status	1
+mass	177.2
+condensable	true
+formula	"C6.0H11.0N1.0O5.0"
+smiles	"CC(CCC(=O)CON(=O)=O)O"
+fgroups	{"C": 6.0, "H": 11.0, "N": 1.0, "O": 5.0}
+ratios	{"OM/OC": 2.461, "H/C": 1.833, "O/C": 0.833, "N/C": 0.167}
+psat_atm	1.2620000000000002e-06
+dhvap_kj	84.5
+note	"NKO"
+tg	251.86
+dvol	155.9
+generation	4
+precursors	["U06000"]
+rdc_id	"A"
+reductions	{"lp": ["NK6001"]}
+
+
+name	"2N6001"
+string	"CH3CH(OO.)CH2CH2CH(OH)CH2(ONO2)"
+status	1
+mass	194.2
+radical	true
+RO2	4
+formula	"C6H12N1O6"
+smiles	"CC(OO.)CCC(O)C(ON(=O)=O)"
+fgroups	{"C": 6, "H": 12, "N": 1, "O": 6}
+ratios	{"OM/OC": 2.697, "H/C": 2.0, "O/C": 1.0, "N/C": 0.167}
+note	"2.NO"
+generation	3
+precursors	["U06000"]
+rdc_id	"RO2"
+
+
+name	"HO6002"
+string	"CH3CH(OOH)CH2CH2CH(OH)CH2(OH)"
+status	1
+mass	150.2
+condensable	true
+formula	"C6H14N0O4"
+smiles	"OCC(CCC(OO)C)O"
+fgroups	{"C": 6, "H": 14, "N": 0, "O": 4}
+ratios	{"OM/OC": 2.086, "H/C": 2.333, "O/C": 0.667, "N/C": 0.0}
+psat_atm	7.994e-09
+dhvap_kj	109.7
+note	"HOO"
+tg	248.62
+dvol	152.18
+generation	4
+precursors	["U06000"]
+rdc_id	"A"
+
+
+name	"HN6001"
+string	"CH3CH(OOH)CH2CH2CH(OH)CH2(ONO2)"
+status	1
+mass	195.2
+condensable	true
+formula	"C6H13N1O6"
+smiles	"OOC(CCC(CON(=O)=O)O)C"
+fgroups	{"C": 6, "H": 13, "N": 1, "O": 6}
+ratios	{"OM/OC": 2.711, "H/C": 2.167, "O/C": 1.0, "N/C": 0.167}
+psat_atm	5.94e-09
+dhvap_kj	110.3
+note	"HNO"
+tg	241.7
+dvol	166.63
+generation	4
+precursors	["U06000"]
+rdc_id	"A"
+
+
+name	"1O6001"
+string	"CH3CH2CH2CH2CH(O.)CH2(OH)"
+status	1
+mass	117.2
+radical	true
+formula	"C6H13N0O2"
+smiles	"CCCCC(O.)C(O)"
+fgroups	{"C": 6, "H": 13, "N": 0, "O": 2}
+ratios	{"OM/OC": 1.628, "H/C": 2.167, "O/C": 0.333, "N/C": 0.0}
+note	"1.O"
+generation	3
+precursors	["U06000"]
+rdc_id	"R"
+
+
+name	"2O6001"
+string	"CH3CH2CH2CH2CH(OO.)CH2(OH)"
+status	1
+mass	133.2
+radical	true
+RO2	7
+formula	"C6.0H13.0N0.0O3.0"
+smiles	"CCCCC(OO.)C(O)"
+fgroups	{"C": 6.0, "H": 13.0, "N": 0.0, "O": 3.0}
+ratios	{"OM/OC": 1.85, "H/C": 2.167, "O/C": 0.5, "N/C": 0.0}
+note	"2.O"
+generation	2
+precursors	["U06000"]
+rdc_id	"RO2"
+reductions	{"lp": ["2O6000"]}
+
+
+name	"2N6000"
+string	"CH3CH2CH2CH2CH(OO.)CH2(ONO2)"
+status	1
+mass	178.2
+radical	true
+RO2	7
+formula	"C6H12N1O5"
+smiles	"CCCCC(OO.)C(ON(=O)=O)"
+fgroups	{"C": 6, "H": 12, "N": 1, "O": 5}
+ratios	{"OM/OC": 2.475, "H/C": 2.0, "O/C": 0.833, "N/C": 0.167}
+note	"2.N"
+generation	2
+precursors	["U06000"]
+rdc_id	"RO2"
+
+
+name	"HN6000"
+string	"CH3CH2CH2CH2CH(OOH)CH2(ONO2)"
+status	1
+mass	179.2
+condensable	true
+formula	"C6H13N1O5"
+smiles	"CCCCC(CON(=O)=O)OO"
+fgroups	{"C": 6, "H": 13, "N": 1, "O": 5}
+ratios	{"OM/OC": 2.489, "H/C": 2.167, "O/C": 0.833, "N/C": 0.167}
+psat_atm	9.521e-07
+dhvap_kj	86.4
+note	"HN"
+tg	234.0
+dvol	160.52
+generation	3
+precursors	["U06000"]
+rdc_id	"A"
+
+
+name	"U06000"
+string	"CH3CH2CH2CH2CdH=CdH2"
+status	1
+mass	84.2
+formula	"C6H12N0O0"
+smiles	"CCCCC=C"
+fgroups	{"C": 6, "H": 12, "N": 0, "O": 0}
+ratios	{"OM/OC": 1.169, "H/C": 2.0, "O/C": 0.0, "N/C": 0.0}
+psat_atm	0.147
+dhvap_kj	33.2
+note	"U"
+tg	78.92
+dvol	123.12
+generation	1
+precursors	["U06000"]
+rdc_id	"G"
+
+
+name	"2N600J"
+string	"CH3COCH(OO.)CH2CH(OH)CH2(ONO2)"
+status	1
+mass	208.2
+radical	true
+RO2	7
+formula	"C6.0H10.0N1.0O7.0"
+smiles	"CC(=O)C(OO.)CC(O)C(ON(=O)=O)"
+fgroups	{"C": 6.0, "H": 10.0, "N": 1.0, "O": 7.0}
+ratios	{"OM/OC": 2.892, "H/C": 1.667, "O/C": 1.167, "N/C": 0.167}
+note	"2.NKO"
+generation	5
+precursors	["U06000"]
+rdc_id	"RO2"
+reductions	{"lp": ["2N600p"]}
+
+
+name	"CH4"
+string	"CH4"
+status	2
+mass	16.1
+formula	"C1H4N0O0"
+smiles	"C"
+fgroups	{"C": 1, "H": 4, "N": 0, "O": 0}
+ratios	{"OM/OC": 1.342, "H/C": 4.0, "O/C": 0.0, "N/C": 0.0}
+note	"C"
+rdc_id	"G"
+
+
+name	"HCOOH"
+string	"CHO(OH)"
+status	2
+mass	46.0
+formula	"C1H2N0O2"
+smiles	"OC=O"
+fgroups	{"C": 1, "H": 2, "N": 0, "O": 2}
+ratios	{"OM/OC": 3.833, "H/C": 2.0, "O/C": 2.0, "N/C": 0.0}
+note	"A"
+rdc_id	"G"
+
+
+name	"HCOO2"
+string	"CHO(OO.)"
+status	2
+mass	61.0
+radical	true
+formula	"C1H1N0O3"
+smiles	"C(=O)(OO.)"
+fgroups	{"C": 1, "H": 1, "N": 0, "O": 3}
+ratios	{"OM/OC": 5.083, "H/C": 1.0, "O/C": 3.0, "N/C": 0.0}
+note	"3.D"
+rdc_id	"R"
+
+
+name	"HCOO2H"
+string	"CHO(OOH)"
+status	2
+mass	62.0
+formula	"C1H2N0O3"
+smiles	"OOC=O"
+fgroups	{"C": 1, "H": 2, "N": 0, "O": 3}
+ratios	{"OM/OC": 5.167, "H/C": 2.0, "O/C": 3.0, "N/C": 0.0}
+note	"G"
+rdc_id	"G"
+
+
+name	"P01001"
+string	"CHO(OONO2)"
+status	2
+mass	107.0
+formula	"C1H1N1O5"
+smiles	"O=COON(=O)=O"
+fgroups	{"C": 1, "H": 1, "N": 1, "O": 5}
+ratios	{"OM/OC": 8.917, "H/C": 1.0, "O/C": 5.0, "N/C": 1.0}
+note	"P"
+rdc_id	"G"
+
+
+name	"1E2000"
+string	"CHO-O-CH2(O.)"
+status	2
+mass	75.0
+radical	true
+formula	"C2H3N0O3"
+smiles	"C(=O)OC(O.)"
+fgroups	{"C": 2, "H": 3, "N": 0, "O": 3}
+ratios	{"OM/OC": 3.125, "H/C": 1.5, "O/C": 1.5, "N/C": 0.0}
+note	"1.DE"
+rdc_id	"R"
+
+
+name	"2E2000"
+string	"CHO-O-CH2(OO.)"
+status	2
+mass	91.0
+radical	true
+RO2	8
+formula	"C2H3N0O4"
+smiles	"C(=O)OC(OO.)"
+fgroups	{"C": 2, "H": 3, "N": 0, "O": 4}
+ratios	{"OM/OC": 3.792, "H/C": 1.5, "O/C": 2.0, "N/C": 0.0}
+note	"2.DE"
+rdc_id	"RO2"
+
+
+name	"ED2000"
+string	"CHO-O-CHO"
+status	2
+mass	74.0
+condensable	true
+formula	"C2H2N0O3"
+smiles	"O=COC=O"
+fgroups	{"C": 2, "H": 2, "N": 0, "O": 3}
+ratios	{"OM/OC": 3.083, "H/C": 1.0, "O/C": 1.5, "N/C": 0.0}
+psat_atm	0.0809
+dhvap_kj	38.3
+note	"DDE"
+tg	233.93
+dvol	54.75
+rdc_id	"A"
+
+
+name	"CO"
+string	"CO"
+status	2
+mass	28.0
+formula	"C1H0N0O1"
+smiles	"C=O"
+fgroups	{"C": 1, "H": 0, "N": 0, "O": 1}
+ratios	{"OM/OC": 2.333, "H/C": 0.0, "O/C": 1.0, "N/C": 0.0}
+rdc_id	"G"
+
+
+name	"CO2"
+string	"CO2"
+status	2
+mass	44.0
+formula	"C1H0N0O2"
+smiles	false
+fgroups	{"C": 1, "H": 0, "N": 0, "O": 2}
+ratios	{"OM/OC": 3.667, "H/C": 0.0, "O/C": 2.0, "N/C": 0.0}
+rdc_id	"G"
+
+
+name	"CH2OH2"
+string	"CH2(OH)(OH)"
+status	2
+mass	48.0
+formula	"C1H4N0O2"
+smiles	"OCO"
+fgroups	{"C": 1, "H": 4, "N": 0, "O": 2}
+ratios	{"OM/OC": 4.0, "H/C": 4.0, "O/C": 2.0, "N/C": 0.0}
+rdc_id	"G"
+
+
+name	"OH"
+status	2
+mass	17
+rdc_id	"G"
+

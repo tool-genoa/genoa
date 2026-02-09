@@ -1,0 +1,60 @@
+# Basic speices list for GECKO-A -> SSH-aerosol
+
+# For gas-particle partitioning
+SULF 98.0
+NH3 17.0
+HNO3 63.0
+HCL 36.5
+SOAlP 392.0
+BiMT 136.0
+MD 28.0
+BC 12.0
+H2O 18.0
+
+# Reactants
+OH 17.0
+O3 48.0
+NO 30.0
+NO2 46.0
+NO3 62.0
+HO2 33.0
+SO2 64.0
+CO 28.0
+ACO3 75.0
+RO2 250.0
+RO2pool 250.0
+RO2pool1 250.0
+
+# Add for inorganic reaction
+O2 32.0
+H2O2 34.0
+H2 2.0
+HNO4 79.0
+HNO2 47.0
+N2O5 108.0
+O3P 16.0
+O1D 16.0
+O2 32.0
+CO2 44.0
+
+# GECKO-A related
+HO 17.0
+XCLOST 12.0
+RO2pool2 250.0
+RO2pool3 250.0
+RO2pool4 250.0
+RO2pool5 250.0
+RO2pool6 250.0
+RO2pool7 250.0
+RO2pool8 250.0
+RO2pool9 250.0
+
+
+# Precursors in initial files
+APINENE 136.3
+BPINENE 136.3
+LIMONENE 136.3
+TOL 92.
+CMPHEN 136.3
+C02000 170.3
+BCARY 240.

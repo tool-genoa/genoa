@@ -1,0 +1,56 @@
+# ================================================================================
+#  GENOA v3.0: the GENerator of Optimized Atmospheric chemical mechanisms
+#  Parameter file for simulation-based reduction (training)
+#
+#  Notes:
+#    - Lines starting with "#" are comments and ignored.
+#    - Format: name & values (separated by & per stage)
+#    - All rows must have the same number of stage values.
+#    - Flags (flg_) must be 0 = 0ff or 1 = on.
+#
+# ================================================================================
+
+# Path to training condition files
+path_cond & "./test_cases/conditions/U6/2conds" & "./test_cases/conditions/U6/2conds"
+
+# Reduction strategies applied at each stage
+# rm: reaction removal, rs: species removal, da: gas-particle partitioning removal
+# jp: jumping, lp: lumping, rp: replacement
+strategies & ["rm","rs","da","jp","lp","rp"] & ["rm","rs","da","jp","lp","rp"]
+
+# Reference mechanisms for error evaluation
+# Can set multiple for one stage, but error settings need to be updated as well
+# e.g., `ref_cases & ["ref", "pre"]`; `err_max & [0.3, 0.1]`
+# Available options:  
+# - "ref": compare to reference mechanism
+# - "pre": compare to previous valid mechanism
+# - mech_name: any specified mechanism path and name
+ref_cases & ["ref"] & ["ref"]
+
+# Error tolerances for reduction
+# err_max: maximum allowed error
+# err_ave: average allowed error
+# delta_err: maximum error introduced by one reduction step
+err_max   & [0.3] & [0.5]
+err_ave   & [0.1] & [0.15]
+delta_err & [0.1] & [0.15]
+
+# Flags controlling reduction treatments (0 = off, 1 = on)
+# Aerosol-oriented treatment - Reduction with error increase can be accepted when condensables is reduced.
+flg_aerosol    & 0 & 0
+# Elementary-like treatment - Update the reaction list to elementary-like reaction list (split products)
+flg_split_prod & 0 & 1
+
+# Reduction candidate settings
+
+# Numbers of items in a reduction candidate to allow evaluation on full reduction variant combinations
+# Example: nmax_eval_comb = 3, allowing reduction candidate with len <= 3 to examinate all 7 combination
+# Default use rdc_variant_build["ncomb"] if not given. If 0, no vairant.
+nmax_eval_comb & 3 & 3
+
+# For reduction candidate with len > [nmax_eval_ncomb], test only [nmax_eval_rdc] reduction variants.
+# Default use rdc_variant_build["nrdc"] if not given. Set ONLY for candidates w/ len > [nmax_eval_ncomb]
+nmax_eval_rdc  & 10 & 10
+
+# Enables efficient treatment - No retry reduction cycle if No. accepted candidates <= [nmin_retry]
+nmin_retry     & 5 & 0

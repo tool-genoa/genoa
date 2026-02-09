@@ -1,0 +1,55 @@
+
+ max # of pdct found in a rxn:           4
+
+
+ num_n=          86
+ HV       =          21
+ OXYGEN   =           2
+ TBODY    =           5
+ FALLOFF  =          12
+ EXTRA    =           6
+ MEPERO   =           2
+ PERO1    =           2
+ PERO2    =           2
+ PERO3    =           2
+ PERO4    =           4
+ PERO5    =           2
+ PERO6    =           0
+ PERO7    =           4
+ PERO8    =           2
+ PERO9    =           2
+ TABCF    =           0
+ AIN      =          10
+ AOU      =          10
+ WIN      =           0
+ WOU      =           0
+ ISOM     =           0
+ ------------------------------------------------
+ numre=         174
+
+ THE SET OF REACTIONS WAS NOT DEEPLY CHECKED
+  
+ total number of HV reaction :          21
+ number of chromophore (label):          16
+ max number of species in a given label:           5
+  
+ occurence (column 3) of each label (column 2):
+  1       2       1
+  2       3       1
+  3       4       1
+  4       5       1
+  5       6       1
+  6      11       1
+  7      12       1
+  8      13       1
+  9      14       1
+ 10    7300       1
+ 11     100       1
+ 12     110       1
+ 13      17       1
+ 14   40100       5
+ 15    1400       1
+ 16   10100       2
+
+    -- NORMAL EXIT --  LINK-FILE HAS BEEN CREATED
+

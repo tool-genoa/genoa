@@ -1,0 +1,305 @@
+SIZE        ! as generated + 1
+        69  ! total number of species
+       175  ! total number of reactions
+        22  ! HV reactions
+         6  ! third body M reactions
+         2  ! O2 reactions
+         7  ! EXTRA reactions
+        21  ! CH3O2/RO2 reactions
+        13  ! fall off reactions
+         1  ! R(O.) isomerization reactions
+        11  ! gas <-> part. equilibrium
+         1  ! gas <-> wall equilibrium
+         1  ! variable stoi. coef. reactions
+SPECIES
+PHASE: START GAS
+GH2              /2.0/
+GH2O             /16.0/
+GH2O2            /34.0/
+GHNO2            /47.0/
+GHNO3            /63.0/
+GHNO4            /79.0/
+GHO              /17.0/
+GHO2             /33.0/
+GN2O5            /108.0/
+GNO              /30.0/
+GNO2             /46.0/
+GNO3             /62.0/
+GO3P             /16.0/
+GO1D             /16.0/
+GO2              /32.0/
+GO3              /48.0/
+GSO2             /64.0/
+GSULF            /98.0/
+GXCLOST          /12.0/
+G2V1001          /92.0/
+GCOHOOH          /64.0/
+GED2001          /76.1/
+GNH1001          /109.0/
+GEN2000          /121.1/
+GEH2000          /92.1/
+GCH2OO           /46.0/
+GCH2O            /30.0/
+GCH3O            /31.0/
+GCH3OH           /32.0/
+GN01001          /77.0/
+GCH3O2           /47.0/
+GCH3OOH          /48.0/
+G2N6002          /208.2/
+GHN6002          /209.2/
+GNO6003          /179.2/
+GNK6002          /177.2/
+G2N6001          /194.2/
+GHO6002          /150.2/
+GHN6001          /195.2/
+G1O6001          /117.2/
+G2O6001          /133.2/
+G2N6000          /178.2/
+GHN6000          /179.2/
+GU06000          /84.2/
+G2N600J          /208.2/
+GCH4             /16.1/
+GHCOOH           /46.0/
+GHCOO2           /61.0/
+GHCOO2H          /62.0/
+GP01001          /107.0/
+G1E2000          /75.0/
+G2E2000          /91.0/
+GED2000          /74.0/
+GCO              /28.0/
+GCO2             /44.0/
+GCH2OH2          /48.0/
+GOH              /17.0/
+PHASE: END GAS
+PHASE: START PART.
+AED2001          /76.1/
+AEN2000          /121.1/
+AEH2000          /92.1/
+AHN6002          /209.2/
+ANO6003          /179.2/
+ANK6002          /177.2/
+AHO6002          /150.2/
+AHN6001          /195.2/
+AHN6000          /179.2/
+AED2000          /74.0/
+PHASE: END PART.
+PHASE: START WALL
+PHASE: END WALL
+END SPECIES
+!----------------
+REACTIONS
+!----------------
+GO3 + GO3P => NOTHING                    8.000E-12 0.0 2060.
+GNO2 + GO3P => GNO                    5.100E-12 0.0 -210.
+GO1D + TBODY => GO3P                    1.677E-11 0.0 -110.
+GO1D + TBODY => GO3P                    6.765E-12 0.0 -55.
+GNO + GO3 => GNO2                    3.000E-12 0.0 1500.
+GNO2 + GO3 => GNO3                    1.200E-13 0.0 2450.
+GNO + GNO3 => 2 GNO2                    1.500E-11 0.0 -170.
+GNO + GNO + TBODY => 2 GNO2                    3.300E-39 0.0 -530.
+GNO2 + GNO3 => GNO + GNO2                    4.500E-14 0.0 1260.
+GHNO2 + GHO => GNO2                    1.800E-11 0.0 390.
+GHO + GNO3 => GHO2 + GNO2                    2.200E-11 0.0 0.
+GCO + GHO => GCO2 + GHO2                    1.500E-13 0.0 0.
+GCO + GHO + TBODY => GCO2 + GHO2                    3.660E-33 0.0 0.
+GHO + GO3 => GHO2                    1.700E-12 0.0 940.
+GHO2 + GNO => GHO + GNO2                    3.500E-12 0.0 -270.
+GHNO4 + GHO => GNO2                    1.300E-12 0.0 -380.
+GHO2 + GO3 => GHO                    1.000E-14 0.0 490.
+GHO2 + GHO2 => GH2O2                    3.000E-13 0.0 -460.
+GHO2 + GHO2 + TBODY => GH2O2                    2.100E-33 0.0 -920.
+GHO2 + GNO3 => 0.2 GHNO3 + 0.8 GHO + 0.8 GNO2                    3.500E-12 0.0 0.
+GNO3 + GNO3 => 2 GNO2                    8.500E-13 0.0 2450.
+GH2O2 + GHO => GHO2                    1.800E-12 0.0 0.
+GHO + GHO2 => NOTHING                    4.800E-11 0.0 -250.
+GH2 + GHO => GH2O + GHO2                    2.800E-12 0.0 1800.
+GNO + GO3P + FALLOFF => GNO2                    3.000E-11 -0.0 0.
+    FALLOFF / 0.900E-31 -1.5 0. 0.6 0. 0. 0. /
+GNO2 + GO3P + FALLOFF => GNO3                    2.200E-11 -0.7 0.
+    FALLOFF / 0.250E-30 -1.8 0. 0.6 0. 0. 0. /
+GNO2 + GNO3 + FALLOFF => GN2O5                    1.400E-12 -0.7 0.
+    FALLOFF / 0.200E-29 -4.4 0. 0.6 0. 0. 0. /
+GN2O5 + FALLOFF => GNO2 + GNO3                    4.670E+14 -0.7 10991.
+    FALLOFF / 0.667E-03 -4.4 10991. 0.6 0. 0. 0. /
+GHO + GNO + FALLOFF => GHNO2                    3.600E-11 -0.1 0.
+    FALLOFF / 0.700E-30 -2.6 0. 0.6 0. 0. 0. /
+GHO + GNO2 + FALLOFF => GHNO3                    2.800E-11 -0.0 0.
+    FALLOFF / 0.180E-29 -3.0 0. 0.6 0. 0. 0. /
+GHO2 + GNO2 + FALLOFF => GHNO4                    2.900E-12 -0.0 0.
+    FALLOFF / 0.200E-30 -3.4 0. 0.6 0. 0. 0. /
+GHNO4 + FALLOFF => GHO2 + GNO2                    2.610E+15 -0.0 10900.
+    FALLOFF / 0.500E-05 -0.0 10000. 0.6 0. 0. 0. /
+GHO + GSO2 + FALLOFF => GHO2 + GSULF                    1.600E-12 -0.0 0.
+    FALLOFF / 0.330E-30 -4.3 0. 0.6 0. 0. 0. /
+GO3P + EXTRA => GO3                    5.290E-28 -2.4 0.
+    EXTRA / 100  /
+GO1D + EXTRA => 2 GHO                    1.630E-10 0.0 -60.
+    EXTRA / 500  /
+GHNO3 + GHO + EXTRA => GNO3                    2.400E-14 0.0 -460.
+    EXTRA / 550 2.7E-17 0. -2199 6.5E-34 0. -1335 /
+GHO2 + GHO2 + EXTRA => GH2O2                    4.200E-34 0.0 -2660.
+    EXTRA / 501 2.94E-54 0. -3120 /
+GO3 + HV => GO1D                    1.0E+00 0.0 0
+    HV / 2 1.00 /
+GO3 + HV => GO3P                    1.0E+00 0.0 0
+    HV / 3 1.00 /
+GNO2 + HV => GNO + GO3P                    1.0E+00 0.0 0
+    HV / 4 1.00 /
+GNO3 + HV => GNO                    1.0E+00 0.0 0
+    HV / 5 1.00 /
+GNO3 + HV => GNO2 + GO3                    1.0E+00 0.0 0
+    HV / 6 1.00 /
+GH2O2 + HV => 2 GHO                    1.0E+00 0.0 0
+    HV / 11 1.00 /
+GHNO2 + HV => GHO + GNO                    1.0E+00 0.0 0
+    HV / 12 1.00 /
+GHNO3 + HV => GHO + GNO2                    1.0E+00 0.0 0
+    HV / 13 1.00 /
+GHNO4 + HV => 0.39 GHNO3 + 0.39 GHO + 0.61 GHO2 + 0.61 GNO2                    1.0E+00 0.0 0
+    HV / 14 1.00 /
+GCH4 + GHO => GCH3O2                    2.150E-12 0.0 1735.
+GCH3O2 + GNO => GCH3O + GNO2                    2.800E-12 0.0 -300.
+GCH3O2 + GNO3 => GCH3O + GNO2                    1.300E-12 0.0 0.
+GCH3O2 + GHO2 => GCH3OOH                    4.100E-13 0.0 -750.
+GCH3O + OXYGEN => GCH2O + GHO2                    7.200E-14 0.0 1080.
+GCH3OH + GHO => 0.85 GCH2O + 0.15 GCH3O + 0.85 GHO2                    3.100E-12 0.0 360.
+GCH3OH + GNO3 => GCH2O + GHNO3 + GHO2                    9.400E-13 0.0 2650.
+GCH3OOH + HV => GCH3O + GHO                    1.0E+00 0.0 0
+    HV / 7300 1.00 /
+GCH3OOH + GHO => GCH2O + GHO                    1.000E-12 0.0 -190.
+GCH3OOH + GHO => GCH3O2                    1.900E-12 0.0 -190.
+GCH3O + GNO2 + FALLOFF => GN01001                    1.900E-11 -0.0 0.
+    FALLOFF / 0.900E-28 -4.5 0. 0.44 0. 0. 0. /
+GN01001 + HV => GCH3O + GNO2                    1.0E+00 0.0 0
+    HV / 100 1.00 /
+GHO + GN01001 => GCH2O + GNO2                    4.000E-13 0.0 845.
+GCH2O + HV => GCO + 2 GHO2                    1.0E+00 0.0 0
+    HV / 110 1.00 /
+GCH2O + HV => GCO + GH2                    1.0E+00 0.0 0
+    HV / 17 1.00 /
+GCH2O + GHO => GCO + GHO2                    8.600E-12 0.0 -20.
+GCH2O + GNO3 => GCO + GHNO3 + GHO2                    5.800E-16 0.0 0.
+GHCOOH + GHO => GCO2 + GHO2                    4.500E-13 0.0 0.
+GHCOO2H + GHO => GHCOO2                    1.900E-12 0.0 -190.
+GHCOO2H + HV => GCO2 + GHO + GHO2                    1.0E+00 0.0 0
+    HV / 40100 1.00 /
+GHCOO2 + GHO2 => 0.7 GHCOO2H + 0.3 GHCOOH + 0.3 GO3                    4.300E-13 0.0 -1040.
+GHCOO2 + GNO => GCO2 + GHO2 + GNO2                    8.100E-12 0.0 -270.
+GHCOO2 + GNO3 => 0.5 GCH3O2 + 0.5 GCO2 + GNO2                    5.000E-12 0.0 0.
+GCH3O2 + GHCOO2 => 1.37 GCH3O + 1.37 GCO2 + 1.37 GHO2                    5.000E-12 0.0 0.
+GCH3O2 + GHCOO2 => 0.63 GCH2O + 0.63 GHCOOH                    5.000E-12 0.0 0.
+GHCOO2 + GNO2 + FALLOFF => GP01001                    1.100E-11 -1.0 0.
+    FALLOFF / 0.850E-28 -6.5 0. 0.6 0. 0. 0. /
+GP01001 + FALLOFF => GHCOO2 + GNO2                    5.400E+16 -0.0 13830.
+    FALLOFF / 0.490E-02 -0.0 12100. 0.3 0. 0. 0. /
+GP01001 + HV => GHCOO2 + GNO2                    1.0E+00 0.0 0
+    HV / 1400 1.00 /
+GCH3O2 + PERO1 => 0.2 GCH2O + 0.8 GCH3O                    1.000E-13 0.0 627.
+GCH3O2 + PERO2 => 0.2 GCH2O + 0.6 GCH3O + 0.2 GCH3OH                    1.000E-13 0.0 341.
+GCH3O2 + PERO3 => 0.2 GCH2O + 0.8 GCH3O                    1.000E-13 0.0 -257.
+GCH3O2 + PERO4 => 0.2 GCH2O + 0.6 GCH3O + 0.2 GCH3OH                    1.000E-13 0.0 -289.
+GCH3O2 + PERO5 => 0.2 GCH2O + 0.8 GCH3O                    1.000E-13 0.0 -635.
+GCH3O2 + MEPERO => 0.315 GCH2O + 0.37 GCH3O + 0.315 GCH3OH                    2.060E-13 0.0 -365.
+GCH3O2 + PERO7 => 0.2 GCH2O + 0.6 GCH3O + 0.2 GCH3OH                    1.000E-13 0.0 -702.
+GCH3O2 + PERO8 => 0.2 GCH2O + 0.6 GCH3O + 0.2 GCH3OH                    1.000E-13 0.0 -936.
+GCH3O2 + PERO9 => 0.2 GCH2O + 0.8 GCH3O                    2.000E-12 0.0 -508.
+GHO + GU06000 => G2O6001                    2.278E-12 0.0 -215.
+GHO + GU06000 => G2O6001                    4.802E-12 0.0 -540.
+GCH2OO => 0.5 GCO + 0.5 GCO2 + 0.5 GH2 + 0.5 GH2O                    1.660E+01 4.0 8024.
+GCH2OO + EXTRA => 0.4 GCH2O + 0.55 GCOHOOH + 0.4 GH2O2 + 0.05 GHCOOH                    8.130E-18 1.2 698.
+    EXTRA / 500  /
+GCH2OO + EXTRA => 0.4 GCH2O + 0.55 GCOHOOH + 0.4 GH2O2 + 0.05 GHCOOH                    7.950E-18 1.2 -1510.
+    EXTRA / 502  /
+GCH2OO + GSO2 => GCH2O + GSULF                    3.700E-11 0.0 0.
+GCH2OO + GNO2 => G2V1001                    3.000E-12 0.0 0.
+GCH2OO + GHNO3 => GNH1001                    5.400E-10 0.0 0.
+GCH2OO + GHCOOH => GEH2000                    1.200E-10 0.0 0.
+GCOHOOH + GHO => 0.55 GCH2O + 0.45 GHCOOH + 0.45 GHO + 0.55 GHO2                    7.100E-12 0.0 0.
+G2V1001 => GCH2O + GNO3                    1.000E+06 0.0 0.
+GHO + GNH1001 => GH2O + GHCOO2H + GNO3                    4.950E-12 0.0 719.
+GNO3 + GU06000 => G2N6000                    1.800E-14 0.0 0.
+G2O6001 + GNO => 0.52257 G1O6001 + 0.34116 GCH2O + 0.34116 GHO2 + 0.86373 GNO2                    2.700E-12 0.0 -360.
+G2O6001 + GHO2 => NOTHING                    2.240E-13 0.0 -1300.
+G2O6001 + GNO3 => 0.9014 G1O6001 + 0.0986 GCH2O + 0.0986 GHO2 + GNO2                    8.900E-12 0.0 390.
+G2N6000 + GNO => G2N6001 + GNO2                    2.700E-12 0.0 -360.
+G2N6000 + GHO2 => GHN6000                    2.519E-13 0.0 -1300.
+G2N6000 + GNO3 => G2N6001 + GNO2                    8.900E-12 0.0 390.
+G2N6000 + PERO4 => 0.6 G2N6001                    1.000E-13 0.0 -178.
+G2N6000 + PERO7 => 0.6 G2N6001                    1.000E-13 0.0 -590.
+G1O6001 => GHO6002                    8.000E+10 0.0 3010.
+G1O6001 => GCH2O + GHO2                    1.120E+09 1.7 4076.
+G2N6001 + GNO => 0.76741 GHO2 + 0.76741 GNK6002 + 0.76741 GNO2                    2.700E-12 0.0 -360.
+G2N6001 + GHO2 => GHN6001                    2.577E-13 0.0 -1300.
+G2N6001 + GNO3 => GHO2 + GNK6002 + GNO2                    8.900E-12 0.0 390.
+G2N6001 + PERO4 => 0.6 GHO2 + 0.8 GNK6002 + 0.2 GNO6003                    1.000E-13 0.0 -181.
+G2N6001 + PERO7 => 0.6 GHO2 + 0.8 GNK6002 + 0.2 GNO6003                    1.000E-13 0.0 -594.
+GHO + GNK6002 => G2N6002                    1.551E-14 0.0 -1835.
+GHO + GNK6002 => 0.9547 G2N6002 + 0.0453 G2N600J                    1.592E-12 0.0 116.
+G2N6002 + GHO2 => 0.99933 GHN6002                    2.332E-13 0.0 -1300.
+G2N6002 + GNO3 => GHO2 + GNO2                    7.547E-12 0.0 390.
+GHN6001 + GHO => GHO + GNK6002                    1.633E-12 0.0 -454.
+GHN6001 + GHO => GHO2                    6.482E-14 0.0 -1094.
+GHN6001 + GHO => G2N6001                    3.814E-13 0.0 -635.
+GHN6001 + GNO3 => GHNO3 + GHO2                    2.220E-15 0.0 0.
+GHN6001 + HV => GHO + GHO2 + GNK6002                    1.0E+00 0.0 0
+    HV / 40100 1.00 /
+GHN6000 + GHO => GHO                    6.462E-14 0.0 -1094.
+GHN6000 + GHO => G2N6000                    3.802E-13 0.0 -635.
+GHN6000 + HV => G2N6001 + GHO                    1.0E+00 0.0 0
+    HV / 40100 1.00 /
+GHN6000 + HV => GCH2O + GHO + GNO2                    1.0E+00 0.0 0
+    HV / 10100 1.00 /
+GEH2000 + GHO => GED2000 + GHO                    6.266E-14 0.0 -1085.
+GEH2000 + GHO => G2E2000                    3.734E-13 0.0 -635.
+GEH2000 + GNO3 => GED2000 + GHNO3 + GHO                    2.560E-17 0.0 0.
+GEH2000 + HV => G1E2000 + GHO                    1.0E+00 0.0 0
+    HV / 40100 1.00 /
+G2E2000 + GNO => G1E2000 + GNO2                    2.623E-12 0.0 -360.
+G2E2000 + GNO => GEN2000                    7.721E-14 0.0 -360.
+G2E2000 + GHO2 => 0.46 GED2000 + 0.54 GEH2000 + 0.2 GHO + 0.2 GHO2                    1.684E-13 0.0 -1300.
+G2E2000 + GNO3 => G1E2000 + GNO2                    8.900E-12 0.0 390.
+G2E2000 + PERO1 => 0.8 G1E2000 + 0.2 GED2000                    1.000E-13 0.0 320.
+G2E2000 + PERO2 => 0.6 G1E2000 + 0.2 GED2000 + 0.2 GED2001                    1.000E-13 0.0 -49.
+G2E2000 + PERO3 => 0.8 G1E2000 + 0.2 GED2000                    1.000E-13 0.0 -564.
+G2E2000 + PERO4 => 0.6 G1E2000 + 0.2 GED2000 + 0.2 GED2001                    1.000E-13 0.0 -680.
+G2E2000 + PERO5 => 0.8 G1E2000 + 0.2 GED2000                    1.000E-13 0.0 -942.
+G2E2000 + MEPERO => 0.6 G1E2000 + 0.2 GED2000 + 0.2 GED2001                    1.000E-13 0.0 -922.
+G2E2000 + PERO7 => 0.6 G1E2000 + 0.2 GED2000 + 0.2 GED2001                    1.000E-13 0.0 -1093.
+G2E2000 + PERO8 => 0.6 G1E2000 + 0.2 GED2000 + 0.2 GED2001                    1.000E-13 0.0 -1327.
+G2E2000 + PERO9 => 0.8 G1E2000 + 0.2 GED2000                    2.000E-12 0.0 -508.
+G1E2000 + OXYGEN => GED2000 + GHO2                    2.500E-14 0.0 300.
+GHO + GNO6003 => GHO2 + GNK6002                    1.675E-12 0.0 -454.
+GHO + GNO6003 => GHO2 + GNK6002                    6.649E-14 0.0 -1094.
+GNO3 + GNO6003 => GHNO3 + GHO2 + GNK6002                    4.061E-15 0.0 0.
+GED2000 + GHO => GCO + GCO2 + GHO2                    3.400E-12 0.0 910.
+GHN6002 + GHO => G2N6002                    3.768E-13 0.0 -635.
+GHN6002 + HV => GHO + GHO2                    1.0E+00 0.0 0
+    HV / 40100 1.00 /
+GEN2000 + GHO => GED2000 + GNO2                    1.578E-14 0.0 -565.
+GEN2000 + GHO => GCH2O + GCO2 + GNO2                    1.700E-12 0.0 910.
+GEN2000 + GNO3 => GED2000 + GHNO3 + GNO2                    2.560E-17 0.0 0.
+GEN2000 + HV => G1E2000 + GNO2                    1.0E+00 0.0 0
+    HV / 10100 1.00 /
+GED2001 + GHO => GED2000 + GHO2                    6.752E-14 0.0 -1085.
+GED2001 + GNO3 => GED2000 + GHNO3 + GHO2                    4.808E-16 0.0 0.
+GED2001 + AIN => AED2001                    1.0E+00 0.0 0
+AED2001 + AOU => GED2001                    1.0E+00 0.0 0
+GEN2000 + AIN => AEN2000                    1.0E+00 0.0 0
+AEN2000 + AOU => GEN2000                    1.0E+00 0.0 0
+GEH2000 + AIN => AEH2000                    1.0E+00 0.0 0
+AEH2000 + AOU => GEH2000                    1.0E+00 0.0 0
+GHN6002 + AIN => AHN6002                    1.0E+00 0.0 0
+AHN6002 + AOU => GHN6002                    1.0E+00 0.0 0
+GNO6003 + AIN => ANO6003                    1.0E+00 0.0 0
+ANO6003 + AOU => GNO6003                    1.0E+00 0.0 0
+GNK6002 + AIN => ANK6002                    1.0E+00 0.0 0
+ANK6002 + AOU => GNK6002                    1.0E+00 0.0 0
+GHO6002 + AIN => AHO6002                    1.0E+00 0.0 0
+AHO6002 + AOU => GHO6002                    1.0E+00 0.0 0
+GHN6001 + AIN => AHN6001                    1.0E+00 0.0 0
+AHN6001 + AOU => GHN6001                    1.0E+00 0.0 0
+GHN6000 + AIN => AHN6000                    1.0E+00 0.0 0
+AHN6000 + AOU => GHN6000                    1.0E+00 0.0 0
+GED2000 + AIN => AED2000                    1.0E+00 0.0 0
+AED2000 + AOU => GED2000                    1.0E+00 0.0 0
+END

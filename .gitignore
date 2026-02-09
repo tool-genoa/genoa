@@ -1,0 +1,35 @@
+# -*-sh-*-
+
+### Reduction results
+toto*
+tmp*
+logs/*
+*.png
+
+### Temporary files
+__pycache__/*
+nohup*
+log.*
+*.tmp*
+.pytest_cache/*
+namelist.out
+**/*.egg-info/*
+
+### Binaries
+*.o
+*.a
+*.so
+*.os
+*.py[cod]
+*.pyc
+*.mod
+*.bin
+*.swp
+
+### Emacs files
+*~
+\#*\#
+.\#*
+
+### mac system file
+.DS_Store

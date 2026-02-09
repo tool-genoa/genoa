@@ -1,0 +1,7 @@
+! Simple condition
+! Initial concs.
+REAC GU06000      2.46E+11
+REAC GO3          1.00E+12
+REAC GNO       1.42E+11
+REAC GNO2      3.58E+11
+END

@@ -1,0 +1,43 @@
+&simu_conditions
+tstart  = 0.          ! starting time for simulation
+tstop   = 86400.      ! stopping time for simulation
+ntstep  = 480         ! # of printouts (binary file) & "refresh" time (T, rate, ...)
+nskip   = 1           ! skip printout in the binary file
+rtol    = 0.1         ! relative tolerance - solver parameters
+atol    = 100.        ! absolute tolerance - solver parameters
+dtmin   = 1           ! minimum time step
+numit   = 3           ! number of interation
+/
+&env_conditions
+temp0   = 298.        ! initial temperature
+rh0     = 70.         ! initial Relative Humidity
+flag_ZA = .FALSE.     ! flag to fix the zenithal angle
+fixedZA = 45.         ! fixed zenithal angle to set between 0 and 90 (put a value over 90 to perform simulations with no light)
+kdilu   = 0.          ! dilution rate constant (apply to all species in all phase)
+kaerloss= 0.          ! particle loss rate constant (apply to species in particles only) 
+iday    = 21          ! Day used for photolysis rate calculation
+imonth  = 4           ! Month used for photolysis rate calculation
+iyear   = 1996        ! Year used for photolysis rate calculation
+sla     = 45.         ! Latitude used for photolysis rate calculation
+slo     = 0.          ! Longitude used for photolysis rate calculation
+tz      = 0.          ! Time zone used for photolysis rate calculation
+/
+&mass_transfert_parameters
+Rp0     = 1E-5        ! Initial radius of the seed particles
+nvoc    = 2.23E11     ! Non Volatile Organic Compound (seeds concentration)
+nvic    = 0.          ! Non Volatile Inorganic Compound (seeds concentration)
+denssoa = 1.06        ! soa density (g.cm-3)
+densseed= 1.06        ! seed density (g.cm-3)
+Mseed   = 427.        ! seed molar mass (DOS=427 g/mol)
+/
+&genoa_options
+phot_file   = 'solarlight.phot' ! Photolysis file
+input_cond  = 'concentrations.init'       ! Simulation conditions
+input_dir_chem    = './'        ! Folder contains mechanism infos - can be changed by ids
+init_conc_list_in = ''! list of initial sets separated by ";": "A 1., B 1.; C 1." - only used by ids
+output_dir  = './RESU'    ! folder to save output files - can be changed by ids
+fg_output   = 1       ! output mode: 0, no print/output 1, print & lbof, 2, regular gecko-a outputs
+fg_out_col  = 1       ! >0: output genoa file = len(err_sps_list_in.split(';')) + 1
+err_sps_list_in = ''  ! output concentrations for listed species groups: "A,B,C;D,E"
+ref_conc_list_in= ''  ! Files used to evaluate current mechanism - read concs will be used to compare current reaults 
+/

@@ -1,0 +1,421 @@
+MODULE solver
+IMPLICIT NONE
+CONTAINS 
+
+SUBROUTINE TWOSTEP(numsp,t,te,dtmin,dtmax,anrat,numit,atol,rtol,&
+                   soa_fg,nsat,idasat,numaou,idaou,nvoc,y)
+  USE parameter_mod, ONLY: smallc
+  USE iteration, ONLY: iterfirst
+  USE frozenstuff, ONLY: resetc,nfix
+  IMPLICIT NONE
+! ----------------------------------------------------------------------
+! BA, december 2021: adapted to boxmod and changed to f90
+! ----------------------------------------------------------------------
+! AUTHOR: JAN VERWER, CENTRE FOR MATHEMATICS AND COMPUTER SCIENCE 
+! (CWI), KRUISLAAN 413, 1098 SJ AMSTERDAM, THE NETHERLANDS
+! 
+! EMAIL ADDRESS: JANV@CWI.NL
+! VERSION: NOVEMBER 1994 / 2
+! 
+! PURPOSE: TWOSTEP IS DESIGNED FOR THE NUMERICAL SOLUTION OF
+! STIFF ODE SYSTEMS
+! 
+!    DY(T)/DT = YP(T,Y) - YL(Y,T)*Y(T)
+! 
+! ORIGINATING FROM ATMOSPHERIC CHEMISTRY. ITS UNDERLYING INTEGRATION
+! METHOD IS THE IMPLICIT, 2-ND ORDER, 2-STEP BDF FORMULA. A SIMPLE 
+! EXPLICIT GAUSS-SEIDEL TECHNIQUE IS USED FOR APPROXIMATING THE 
+! IMPLICITLY DEFINED BDF SOLUTIONS, RATHER THAN THE USUAL MODIFIED 
+! NEWTON METHOD [1,2]. BY THIS APPROACH TWOSTEP IS EXPLICIT, WHEREAS
+! THE EXCELLENT STABILITY OF THE BDF METHOD IS MAINTAINED. ALSO THE
+! JACOBI TECHNIQUE MAY BE APPROPRIATE. IN GENERAL, HOWEVER, ITS USE
+! GENERALLY DECREASES THE STABILITY OF TWOSTEP AND HENCE ALSO THE
+! EFFICIENCY.
+! 
+! WHILE IN THE PROTOTYPE SOLVER DISCUSSED IN [1] THE NUMBER OF 
+! ITERATIONS IS DETERMINED BY A CONVERGENCE CRITERION, TWOSTEP 
+! WORKS WITH A FIXED, A PRIORI GIVEN NUMBER OF ITERATIONS. THIS
+! LEADS TO A SOMEWHAT SIMPLER CODE AND IN VARIOUS EXPERIMENTS
+! THIS MORE SIMPLE STRATEGY HAS TURNED OUT TO BE AS EFFICIENT AS 
+! THE ITERATION STRATEGY [2]. IN FACT, TWOSTEP MAY WORK WELL WITH
+! ONLY A FEW ITERATIONS PER INTEGRATION STEP. IN THIS SITUATION
+! TWOSTEP HAS A WORKLOAD COMPARABLE TO EXPLICIT SOLVERS BASED
+! ON THE QUASI-STEADY-STATE-APPROACH (QSSA) [3]. NOTE THAT WHEN
+! A FEW GAUSS-SEIDEL ITERATIONS ARE USED, THE ORDER OF THE COMPONENTS
+! GENERALLY WILL INFLUENCE THE ACCURACY. TO OUR EXPERIENCE THIS
+! INFLUENCE IS MINOR.
+! 
+! [1] J.G. VERWER, GAUSS-SEIDEL ITERATION FOR STIFF ODES FROM
+! CHEMICAL KINETICS, SIAM JOURNAL ON SCIENTIFIC COMPUTING 15,
+! 1243 - 1250, 1994.
+! 
+! [2] J.G. VERWER & D. SIMPSON, A COMPARISON BETWEEN TWO EXPLICIT
+! METHODS FOR STIFF ODES FROM ATMOSPHERIC CHEMISTRY. REPORT
+! NM-R9414, CWI, AMSTERDAM, 1994 (TO APPEAR IN APPL. NUMER. MATH.).
+! 
+! [3] J.G. VERWER & M. VAN LOON,  AN EVALUATION OF EXPLICIT PSEUDO-
+! STEADY-STATE APPROXIMATION SCHEMES FOR STIFF ODE SYSTEMS FROM
+! CHEMICAL KINETICS, J. COMPUT. PHYS. 113, 347 - 352, 1994.
+!
+!----------------------------------------------------------------------
+!
+! MEANING OF PARAMETERS:
+! 
+! NUMSP   - INTEGER. NUMBER OF COMPONENTS.
+! T       - REAL. THE INDEPENDENT VARIABLE TIME.
+! TE      - REAL. THE ENDPOINT OF TIME.
+! DT      - REAL. THE STEPSIZE.
+! DTMIN   - REAL. A MINIMUM FOR DT.
+! DTMAX   - REAL. A MAXIMUM FOR DT.
+! YOLD    - REAL ARRAY (N). SOLUTION AT PREVIOUS TIME POINT.
+! Y       - REAL ARRAY (N). SOLUTION AT CURRENT TIME POINT.
+! YNEW    - REAL ARRAY (N). SOLUTION AT FORWARD TIME POINT.
+! YP      - REAL ARRAY (N). STORAGE FOR THE PRODUCTION TERM.
+! YL      - REAL ARRAY (N). STORAGE FOR THE LOSS TERM.
+! SUM     - REAL ARRAY (N). WORKARRAY FOR THE BDF2 METHOD
+! WBDF2   - REAL ARRAY (N). WORKARRAY FOR THE BDF2 METHOD
+! ATOL    - REAL ARRAY (N). ABSOLUTE TOLERANCES.
+! RTOL    - REAL ARRAY (N). RELATIVE TOLERANCES.
+! NUMIT   - INTEGER. NUMBER OF GAUSS-SEIDEL OR JACOBI ITERATIONS.
+! NFCN    - INTEGER. THE TOTAL NUMBER OF (FUNCTION) CALLS OF ITER.
+! NACCPT  - INTEGER. THE NUMBER OF ACCEPTED INTEGRATION STEPS.
+! NREJEC  - INTEGER. THE NUMBER OF REJECTED INTEGRATION STEPS.
+! NSTART  - INTEGER. THE NUMBER OF RESTARTS + 1.
+!
+!----------------------------------------------------------------------
+!
+! STORAGE: 9 REAL ARRAYS OF DIMENSION N.
+!
+!----------------------------------------------------------------------
+!
+! INPUT:      
+! 
+! NUMSP   - NUMBER OF COMPONENTS.
+! T       - INITIAL TIME; T IS CHANGED.
+! TE      - THE ENDPOINT OF TIME.
+! DTMIN   - THE MINIMAL STEPSIZE THAT TWOSTEP IS ALLOWED TO USE. 
+! DTMAX   - THE MAXIMAL STEPSIZE THAT TWOSTEP IS ALLOWED TO USE. 
+! 
+!           IF ON INPUT DTMIN = DTMAX, THEN DT:=DTMIN AND DT IS KEPT
+!           FIXED THROUGHOUT THE INTEGRATION, POSSIBLY EXCEPT FOR
+!           THE FINAL STEP WHERE DT MAY BE ADJUSTED TO PRECISELY HIT
+!           THE END POINT TE. SO, THE LENGTH OF THE INTERVAL NEED NOT BE
+!           AN INTEGER MULTIPLE OF THE SELECTED STEPSIZE.
+! 
+!           IF DTMIN = DTMAX, THE STEPSIZE CONTROL IS SWITCHED OFF.
+!           THE USER THUS SHOULD ASCERTAIN THAT THE INTEGRATION
+!           PROCESS REMAINS STABLE FOR THE SELECTED STEPSIZE. 
+! 
+!           IF DTMAX > DTMIN, THEN STEPSIZE CONTROL IS CARRIED OUT
+!           AND TWOSTEP DETERMINES AN INITIAL STEPSIZE ITSELF. HOWEVER,
+!           THE CONTROL AND THE INITIAL STEPSIZE SELECTION CAN BE
+!           OVERRULED TO SATISFY THE CONSTRAINT DTMIN <= DT <= DTMAX.
+! 
+! Y       - INITIAL SOLUTION VECTOR; Y IS CHANGED.
+! ATOL    - ABSOLUTE TOLERANCES.
+! RTOL    - RELATIVE TOLERANCES.
+! 
+! NUMIT   - THE NUMBER OF GAUSS-SEIDEL (OR JACOBI ITERATIONS) USED
+!           PER TIME STEP. THIS NUMBER THUS IS A PRIORI DESCRIBED
+!           FOR THE WHOLE INTEGRATION. A LOW NUMBER IS RECOMMENDED
+!           FOR GAUSS-SEIDEL ITERATION [1,2].
+! 
+!           NOTE THAT FOR THE GAUSS-SEIDEL TECHNIQUE THE ORDER OF 
+!           THE COMPONENTS WITHIN ITER WILL PLAY A ROLE. IT IS
+!           RECOMMENDED TO ORDER THE COMPONENTS IN DECREASING
+!           OF THE LOSS RATES FOR THE VERY SHORT LIVING SPECIES
+!           LIKE THE RADICALS. 
+!
+!----------------------------------------------------------------------
+!
+! OUTPUT:      
+! 
+! T       - T = TE.
+! DTOLD   - THE LAST STEPSIZE VALUE USED WHEN WORKING WITH
+!           VARIABLE STEPSIZES.
+! DT      - THE LAST STEPSIZE USED TO HIT THE ENDPOINT TE
+!           WHEN WORKING WITH CONSTANT STEPSIZES.
+! Y       - THE COMPUTED SOLUTION AT T = TE.
+! NFCN, NACCPT, NREJEC, NSTART, STARTDT - SEE MEANING OF PARAMETERS.
+!
+!----------------------------------------------------------------------
+!
+! SUBROUTINES:
+! 
+! TWOSTEP CALLS THREE SUBROUTINES, VIZ. NEWDT, FIT AND ITER. ONLY
+! SUBROUTINE ITER IS TO BE DEFINED BY THE USER.
+! 
+! NEWDT  - COMPUTES THE NEW STEPSIZE. NEWDT ITSELF CALLS FIT.
+! FIT    - MAY ADJUST DT TO GUARANTEE THAT THE REMAINDER
+!          OF THE INTEGRATION INTERVAL IS AN INTEGER MULTIPLE OF
+!          THE CURRENT STEPSIZE. THE ADJUSTMENT IS CARRIED AS SOON 
+!          AS (TE-T)/DT <= 10.0. HENCE THE ADJUSTMENT MAY LEAD TO
+!          A STEPSIZE SMALLER THAN DTMIN FOR APPROXIMATELY
+!          TEN INTEGRATION STEPS.
+! ITER   - A USER DEFINED ROUTINE FOR THE ODE SYSTEM. WITHIN ITER
+!          ALSO THE GAUSS-SEIDEL OR JACOBI TECHNIQUE IS TO BE 
+!          IMPLEMENTED BY THE USER, AS EXEMPLIFIED BELOW:
+!----------------------------------------------------------------------
+
+  INTEGER,INTENT(IN) :: numsp
+  INTEGER,INTENT(IN) :: numit
+  INTEGER,INTENT(IN) :: soa_fg
+  INTEGER,INTENT(IN) :: nsat
+  INTEGER,INTENT(IN) :: idasat(:)
+  INTEGER,INTENT(IN) :: numaou
+  INTEGER,INTENT(IN) :: idaou(:)
+  REAL,INTENT(IN) ::    nvoc
+
+! REAL ATOL(maxsp), RTOL(maxsp)
+  REAL,INTENT(IN) :: ATOL, RTOL
+  REAL,INTENT(IN) :: DTMIN, DTMAX, TE
+  REAL,INTENT(INOUT) :: T
+  REAL,INTENT(IN) :: ANRAT(:)
+  REAL,INTENT(INOUT) :: Y(:)
+
+  REAL :: WBDF2(SIZE(Y)), YOLD(SIZE(Y))
+  REAL :: YNEW(SIZE(Y)), YL(SIZE(Y)), YP(SIZE(Y))
+  REAL :: DT
+  REAL :: errt,memerrt
+  INTEGER :: memid
+
+  INTEGER :: I, J
+  INTEGER :: NFCN, NACCPT, NREJEC
+  INTEGER :: NSTART
+  REAL :: DTOLD, ERRLTE, DTG
+  REAL :: RATIO, YTOL, DY
+  REAL :: A1, A2, C, CP1
+  LOGICAL :: ACCEPT, RESTART, FAILER
+
+!-----------------------------------------------------------------------
+!    INITIALIZATION OF COUNTERS, ETC.
+!-------------------------------------------------------------------------
+  NACCPT=0
+  NREJEC=0
+  NFCN=0
+  NSTART=0
+  FAILER=.FALSE.
+  RESTART=.FALSE.
+  ACCEPT=.TRUE.
+
+!--------------------------------------------------------------------------
+!    INITIAL STEPSIZE COMPUTATION. 
+!--------------------------------------------------------------------------
+  IF (DTMIN.EQ.DTMAX) THEN
+    NSTART=1
+    DT=MIN(DTMIN,(TE-T)/2)
+    GOTO 28
+  ENDIF
+
+  IF (nfix/=0) THEN
+    CALL resetc(y, t)  ;  CALL resetc(ynew, t)
+  ENDIF
+
+  CALL iterfirst(anrat,y,0.,soa_fg,nsat,idasat,numaou,idaou,nvoc,y,yp,yl,t)
+     
+  NFCN=NFCN+1
+  DT=TE-T
+
+  DO I=1,numsp
+    !YTOL=ATOL(I)+RTOL(I)*ABS(Y(I))
+    YTOL=ATOL+RTOL*ABS(Y(I))
+    DY=YP(I)-Y(I)*YL(I)
+    IF (DY.NE.0.0) DT=MIN(DT,YTOL/ABS(DY))
+  ENDDO
+
+25 CONTINUE
+  NSTART=NSTART+1
+  IF (RESTART) DT=DT/10.0
+  RESTART=.TRUE.
+  DT=MAX(DTMIN,MIN(DT,DTMAX))
+
+  CALL FIT(T,TE,DT)
+
+  DT=MIN(DT,(TE-T)/2)
+
+!-----------------------------------------------------------------------
+!    THE STARTING STEP IS CARRIED OUT, USING THE IMPLICIT EULER METHOD.
+!-----------------------------------------------------------------------
+
+28 CONTINUE
+
+  YNEW(:)=Y(:)
+  YOLD(:)=Y(:)
+  WBDF2(:)=Y(:)
+
+  DO I=1,NUMIT
+    IF (nfix/=0) THEN
+      CALL resetc(y, t)  ;  CALL resetc(ynew, t)
+    ENDIF
+    CALL iterfirst(anrat,wbdf2,dt,soa_fg,nsat,idasat,numaou,idaou,nvoc,ynew,yp,yl,t)
+    NFCN=NFCN+1
+  ENDDO
+
+  NACCPT=NACCPT+1
+  T=T+DT
+  Y(:)=YNEW(:)
+
+!-----------------------------------------------------------------------
+!    SUBSEQUENT STEPS ARE CARRIED OUT WITH THE TWO-STEP BDF METHOD.
+!-----------------------------------------------------------------------
+  DTOLD=DT
+  RATIO=1.0
+
+60 CONTINUE
+
+  C=1.0/RATIO
+  CP1=C+1.0
+  A1=((C+1.0)**2)/(C*C+2.0*C)
+  A2=-1.0/(C*C+2.0*C)
+  DTG=DT*(1.0+C)/(2.0+C)
+
+  DO J=1,numsp
+    WBDF2(J)=A1*Y(J)+A2*YOLD(J)
+    YNEW(J)=MAX(smallc,Y(J)+RATIO*(Y(J)-YOLD(J)))
+  ENDDO
+
+  DO I=1,NUMIT
+    IF (nfix/=0) THEN
+      CALL resetc(y, t)  ;  CALL resetc(ynew, t)
+    ENDIF
+    CALL iterfirst(anrat,wbdf2,dtg,soa_fg,nsat,idasat,numaou,idaou,nvoc,ynew,yp,yl,t)
+    NFCN=NFCN+1
+  ENDDO
+
+!-----------------------------------------------------------------------
+!    IF STEPSIZES SHOULD REMAIN EQUAL, STEPSIZE CONTROL IS OMITTED.
+!-----------------------------------------------------------------------
+
+  IF (DTMIN.EQ.DTMAX) THEN
+    T=T+DTOLD
+    NACCPT=NACCPT+1
+    YOLD(:)=Y(:)
+    Y(:)=YNEW(:)
+
+    IF (DT.NE.DTOLD) THEN
+      T=T-DTOLD+DT
+      RETURN
+    ENDIF
+  
+    DT=MIN(DTOLD,TE-T)
+    RATIO=DT/DTOLD
+    IF (T.GE.TE) RETURN
+    GOTO 60
+  ENDIF
+
+!-----------------------------------------------------------------------
+!    OTHERWISE STEPSIZE CONTROL IS CARRIED OUT.
+!-----------------------------------------------------------------------
+
+      ERRLTE=0.0
+
+!ba      DO 90 I=1,numsp
+!ba       YTOL=ATOL(I)+RTOL(I)*ABS(Y(I))
+!ba       ERRLTE=MAX(ERRLTE,ABS(C*YNEW(I)-CP1*Y(I)+YOLD(I))/YTOL)
+!ba   90 CONTINUE
+  DO I=1,numsp
+    !YTOL=ATOL(I)+RTOL(I)*ABS(Y(I))
+    YTOL=ATOL+RTOL*ABS(Y(I))
+    errt=ABS(C*YNEW(I)-CP1*Y(I)+YOLD(I))/YTOL
+    IF (errt.gt.errlte) THEN
+      errlte=errt
+      memerrt=errt
+      memid=i
+    ENDIF
+  ENDDO
+
+  ERRLTE=2.0*ERRLTE/(C+C*C)
+ 
+  CALL NEWDT(T,TE,DTOLD,ERRLTE,DTMIN,DTMAX,DT,RATIO,ACCEPT)
+
+!-----------------------------------------------------------------------
+!    HERE THE STEP HAS BEEN ACCEPTED. 
+!-----------------------------------------------------------------------
+
+  IF (ACCEPT) THEN
+    FAILER=.FALSE.
+    RESTART=.FALSE.
+    T=T+DTOLD
+    NACCPT=NACCPT+1
+    YOLD(:)=Y(:)
+    Y(:)=YNEW(:)
+    IF (T.GE.TE) RETURN
+    GOTO 60
+  ENDIF
+
+!-----------------------------------------------------------------------
+!    A RESTART CHECK IS CARRIED OUT.
+!-----------------------------------------------------------------------
+     
+  IF (FAILER) THEN
+    NREJEC=NREJEC+1
+    FAILER=.FALSE.
+    NACCPT=NACCPT-1
+    T=T-DTOLD
+    PRINT*, "going back in time"
+    Y(:)=YOLD(:)
+    GOTO 25
+  ENDIF
+
+!-----------------------------------------------------------------------
+!    HERE THE STEP HAS BEEN REJECTED.
+!-----------------------------------------------------------------------
+
+  NREJEC=NREJEC+1
+  FAILER=.TRUE.
+  GOTO 60
+
+END SUBROUTINE TWOSTEP
+
+!=======================================================================
+!=======================================================================
+SUBROUTINE FIT (T,TE,DT)
+  IMPLICIT NONE
+  REAL, INTENT(IN) :: TE
+  REAL, INTENT(IN) :: T
+  REAL, INTENT(INOUT) :: DT
+
+  INTEGER NS
+  REAL RNS
+
+  RNS=(TE-T)/DT
+
+  IF (RNS.GT.10.0) RETURN
+
+  NS=INT(RNS)+1
+  DT=(TE-T)/NS
+  DT=(DT+T)-T
+END SUBROUTINE FIT
+
+!=======================================================================
+!=======================================================================
+SUBROUTINE NEWDT(T,TE,DTOLD,ERRLTE,DTMIN,DTMAX,DT,RATIO,ACCEPT)
+  IMPLICIT NONE
+  REAL,INTENT(IN)    :: ERRLTE, DTMIN, T, TE, DTMAX
+  REAL,INTENT(INOUT) :: DTOLD
+  REAL,INTENT(INOUT) :: DT
+  REAL,INTENT(OUT)   :: RATIO
+  LOGICAL,INTENT(OUT) :: ACCEPT
+
+  REAL TS
+
+  IF (ERRLTE.GT.1.0 .AND. DT.GT.DTMIN) THEN
+   ACCEPT=.FALSE.
+   TS=T
+  ELSE
+   ACCEPT=.TRUE.
+   DTOLD=DT
+   TS=T+DTOLD
+  ENDIF
+
+  DT=MAX(0.5,MIN(2.,0.8/SQRT(ERRLTE)))*DT
+  DT=MAX(DTMIN,MIN(DT,DTMAX))
+
+  CALL FIT (TS,TE,DT)
+
+  RATIO=DT/DTOLD
+
+END SUBROUTINE NEWDT
+
+
+END MODULE solver
